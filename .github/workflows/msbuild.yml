@@ -43,4 +43,4 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         tag_name: build
-        files: a/4ccEditor/4ccEditor/Release/4ccEditor.exe
+        files: D:/a/4ccEditor/4ccEditor/Release/4ccEditor.exe
