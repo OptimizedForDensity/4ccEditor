@@ -21,7 +21,7 @@ env:
   BUILD_CONFIGURATION: Release
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -43,4 +43,4 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         tag_name: build
-        files: 4ccEditor/4ccEditor/Release/4ccEditor.exe
+        files: a/4ccEditor/4ccEditor/Release/4ccEditor.exe
