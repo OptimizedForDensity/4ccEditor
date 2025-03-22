@@ -655,7 +655,7 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 		//Warn if player has a player style that doesn't match any of their A positions
 		if (!valid_player_style(player))
 		{
-			errorMsg << _T("WARN: Has a player style that doesn't match any of their playing positions; ");
+			errorMsg << _T("WARN: Has a player style that doesn't match any of their playable positions; ");
 		}
 
 		//Check individual skill ratings
