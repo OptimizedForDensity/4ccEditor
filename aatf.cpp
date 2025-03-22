@@ -17,8 +17,6 @@ bool valid_player_style(player_entry& player)
 	{
 		case 0: // no style is always valid
 			return true;
-		case 16: // never used so always invalid
-			return false;
 
 		// the following are only available for one position
 		case 3: // fox in the box
@@ -31,8 +29,8 @@ bool valid_player_style(player_entry& player)
 		case 11: // off. FB
 		case 12: // def. FB
 			return (player.play_pos[10] == 2) || (player.play_pos[11] == 2);
-		case 17: // off. GK
-		case 18: // def. GK
+		case 16: // off. GK
+		case 17: // def. GK
 			return player.play_pos[12] == 2;
 
 		// the following are valid for multiple positions
