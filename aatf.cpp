@@ -11,7 +11,7 @@
   typedef std::wstringstream tstringstream;
 #endif
 
-bool valid_player_style(player_entry& player) const
+bool valid_player_style(player_entry& player)
 {
 	switch (player.play_style)
 	{
