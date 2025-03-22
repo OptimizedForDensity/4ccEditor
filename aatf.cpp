@@ -30,10 +30,10 @@ bool valid_player_style(player_entry& player)
 			return player.play_pos[9] == 2;
 		case 11: // off. FB
 		case 12: // def. FB
-			return (player.play_pos[0] == 10) || (player.play_pos[11] == 2);
+			return (player.play_pos[10] == 2) || (player.play_pos[11] == 2);
 		case 17: // off. GK
 		case 18: // def. GK
-			return player.reg_pos == 0;
+			return player.play_pos[12] == 2;
 
 		// the following are valid for multiple positions
 		case 2: // dummy runner
