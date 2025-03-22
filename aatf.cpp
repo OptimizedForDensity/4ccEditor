@@ -11,6 +11,58 @@
   typedef std::wstringstream tstringstream;
 #endif
 
+bool valid_player_style(player_entry& player) const
+{
+	switch (player.play_style)
+	{
+		case 0: // no style is always valid
+			return true;
+		case 16: // never used so always invalid
+			return false;
+
+		// the following are only available for one position
+		case 3: // fox in the box
+		case 13: // target man
+			return player.play_pos[0] == 2;
+		case 8: // anchor man
+			return player.play_pos[5] == 2;
+		case 10: // extra frontman
+			return player.play_pos[9] == 2;
+		case 11: // off. FB
+		case 12: // def. FB
+			return (player.play_pos[0] == 10) || (player.play_pos[11] == 2);
+		case 17: // off. GK
+		case 18: // def. GK
+			return player.reg_pos == 0;
+
+		// the following are valid for multiple positions
+		case 2: // dummy runner
+			if (player.play_pos[4] == 2)
+				return true;
+			// otherwise, fall through to goal poacher check
+		case 1: // goal poacher
+			return (player.play_pos[0] == 2) || (player.play_pos[1] == 2);
+		case 14: // creative playmaker
+			if (player.play_pos[1] == 2)
+				return true;
+			// otherwise, fall through to prolific winger check
+		case 4: // prolific winger
+			return (player.play_pos[2] == 2) || (player.play_pos[3] == 2);
+		case 5: // classic no. 10
+			return (player.play_pos[4] == 2) || (player.play_pos[6] == 2);
+		case 6: // hole player
+		case 7: // box-to-box
+			return (player.play_pos[4] == 2) || (player.play_pos[6] == 2) || (player.play_pos[7] == 2) || (player.play_pos[8] == 2);
+		case 9: // the destroyer
+			return (player.play_pos[5] == 2) || (player.play_pos[6] == 2);
+		case 15: // build up
+			return (player.play_pos[5] == 2) || (player.play_pos[9] == 2) || (player.play_pos[10] == 2) || (player.play_pos[11] == 2);
+		default:
+			return false;
+	}	
+	return false;
+}
+
 //Struct to hold the necessary data to check if each player skill matches its target rating and, if not, print an error message
 struct skillCheck
 {
@@ -600,6 +652,12 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 		{
 			errorTot++;
 			errorMsg << _T("Illegal Ability scores; ");
+		}
+
+		//Warn if player has a player style that doesn't match any of their A positions
+		if (!valid_player_style(player))
+		{
+			errorMsg << _T("WARN: Has a player style that doesn't match any of their playing positions; ");
 		}
 
 		//Check individual skill ratings
