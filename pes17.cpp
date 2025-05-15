@@ -76,7 +76,7 @@ void fill_player_entry17(player_entry &players, int &current_byte, void* ghdescr
 	
 	//Unknown C - 1 bit
 
-	players.play_style = read_dataOld(2, 6, current_byte, pDescriptorOld);
+	players.play_style = read_dataOld(3, 5, current_byte, pDescriptorOld);
 
 	players.ball_ctrl = read_dataOld(0, 7, current_byte, pDescriptorOld);
 
@@ -460,7 +460,7 @@ void extract_player_entry17(player_entry player, int &current_byte, void* ghdesc
 
 	//Unknown C - 1 bit
 
-	write_dataOld(player.play_style, 2, 6, current_byte, pDescriptorOld);
+	write_dataOld(player.play_style, 3, 5, current_byte, pDescriptorOld);
 
 	write_dataOld(player.ball_ctrl, 0, 7, current_byte, pDescriptorOld);
 
