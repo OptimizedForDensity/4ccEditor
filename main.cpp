@@ -2254,7 +2254,7 @@ void show_player_info(int p_ind)
 		SendDlgItemMessage(ghw_main, IDC_PLAY_RPOS, CB_SETCURSEL, (WPARAM)gplayers[p_ind].reg_pos, 0);
 
 		ii = gplayers[p_ind].play_style;
-		if((giPesVersion == 15 || giPesVersion == 16) && ii>16) ii--; //Unused index at 16 (left over from PES14)
+		//if((giPesVersion == 15 || giPesVersion == 16) && ii>16) ii--; //Unused index at 16 (left over from PES14)
 		SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_SETCURSEL, (WPARAM)ii, 0);
 
 		for(ii=0;ii<13;ii++)
@@ -2894,7 +2894,7 @@ player_entry get_form_player_info(int index)
 	output.reg_pos = SendDlgItemMessage(ghw_main, IDC_PLAY_RPOS, CB_GETCURSEL, 0, 0);
 
 	ii = SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_GETCURSEL, 0, 0);
-	if((giPesVersion == 15 || giPesVersion==16) && ii>15) ii++; //15 and 16 have unused index 16, left over from 14
+	//if((giPesVersion == 15 || giPesVersion==16) && ii>15) ii++; //15 and 16 have unused index 16, left over from 14
 	output.play_style = ii;
 
 	for(ii=0;ii<13;ii++)
@@ -4969,7 +4969,7 @@ void roster_data_output()
 
 						//Print play style
 						int ind = gplayers[jj].play_style;
-						if((giPesVersion == 15 || giPesVersion==16) && ind>16) ind--;
+						//if((giPesVersion == 15 || giPesVersion==16) && ind>16) ind--;
 						outstr += playstyle[ind];
 
 						//Print player skill(s)
@@ -5806,3 +5806,4 @@ void update_tables()
 		}
 	}
 }
+
