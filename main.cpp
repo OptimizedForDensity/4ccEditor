@@ -1473,7 +1473,7 @@ void data_handler(const TCHAR *pcs_file_name)
 		}
 
 		//Fill Play Style combobox:	
-		int numPlayStyles = 18;
+		int numPlayStyles = 19;
 		SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_RESETCONTENT, 0, 0);
 		for (int ii = 0; ii < numPlayStyles; ii++)
 		{
@@ -5806,4 +5806,5 @@ void update_tables()
 		}
 	}
 }
+
 
