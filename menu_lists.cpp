@@ -62,6 +62,7 @@ TCHAR* gpc_playstyle18[18] = { _T("None"),
 					  _T("Target Man"),
 					  _T("Creative Playmaker"),
 					  _T("Build Up"),
+                      _T("Solid Player"),
 					  _T("Offensive Goalkeeper"),
 					  _T("Defensive Goalkeeper") };
 
@@ -96,4 +97,5 @@ TCHAR* gpc_positions[13] = { _T("Goalkeeper"),
 
 TCHAR* gpc_pos_short[13] = { _T("GK"),_T("CB"),_T("LB"),_T("RB"),_T("DMF"),_T("CMF"),_T("LMF"),_T("RMF"),_T("AMF"),
 					       _T("LWF"),_T("RWF"),_T("SS"),_T("CF") };
+
 
