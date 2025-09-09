@@ -4868,9 +4868,13 @@ void roster_data_output()
 	{
 		playstyle = gpc_playstyle19;
 	}
-	else
+	else if(giPesVersion>=17)
 	{
 		playstyle = gpc_playstyle18;
+	}
+	else
+	{
+		playstyle = gpc_playstyle16;
 	}
 	TCHAR* playskills[] = {_T("Scissors Feint"),
 	_T("Flip Flap"),
@@ -5806,6 +5810,7 @@ void update_tables()
 		}
 	}
 }
+
 
 
 
