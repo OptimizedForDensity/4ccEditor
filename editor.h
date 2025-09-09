@@ -654,6 +654,7 @@ struct resize_info
 
 //Combobox item definitions
 
+extern TCHAR* gpc_playstyle16[];
 extern TCHAR* gpc_playstyle18[];
 extern TCHAR* gpc_playstyle19[];
 extern TCHAR* gpc_playstyle20[];
@@ -750,3 +751,4 @@ void enable_fpc_invis_for_displayed_player(HWND, int);
 void disable_fpc_invis_for_displayed_player(HWND, int);
 void enable_fpc_invis_for_player(player_entry&, int);
 void disable_fpc_invis_for_player(player_entry&, int);
+
