@@ -1477,7 +1477,7 @@ void data_handler(const TCHAR *pcs_file_name)
 		SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_RESETCONTENT, 0, 0);
 		for (int ii = 0; ii < numPlayStyles; ii++)
 		{
-			SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_ADDSTRING, 0, (LPARAM)gpc_playstyle18[ii]);
+			SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_ADDSTRING, 0, (LPARAM)gpc_playstyle16[ii]);
 		}
 
 		//get number of player, team entries
@@ -1549,11 +1549,11 @@ void data_handler(const TCHAR *pcs_file_name)
 		UpdateWindow(GetDlgItem(ghw_tab1, IDC_STATIC_T35));
 
 		//Fill Play Style combobox:	
-		int numPlayStyles = 18;
+		int numPlayStyles = 19;
 		SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_RESETCONTENT, 0, 0);
 		for (int ii = 0; ii < numPlayStyles; ii++)
 		{
-			SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_ADDSTRING, 0, (LPARAM)gpc_playstyle18[ii] );
+			SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_ADDSTRING, 0, (LPARAM)gpc_playstyle16[ii] );
 		}
 		
 		//get number of player, team entries
@@ -5806,5 +5806,6 @@ void update_tables()
 		}
 	}
 }
+
 
 
