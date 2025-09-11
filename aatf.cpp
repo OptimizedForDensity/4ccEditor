@@ -932,10 +932,15 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 	}
     
     //Check ability stats
-    if(numReg != (23-reqNumSilver-reqNumGold))
+    if(numReg != (23-reqNumBronze-reqNumSilver-reqNumGold))
     {
         errorTot++;
         errorMsg << _T("Number of Regular players is ") << numReg << _T(", should be ") << 23-reqNumSilver-reqNumGold << _T("; ");
+    }
+	if(numBronze != reqNumBronze)
+    {
+        errorTot++;
+        errorMsg << _T("Number of Bronze medals is ") << numBronze << _T(", should be ") << reqNumBronze << _T("; ");
     }
     if(numSilver != reqNumSilver)
     {
@@ -958,4 +963,5 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 	else
 		SendDlgItemMessage(hAatfbox, IDB_AATFOK, WM_SETTEXT, 0, (LPARAM) _T("Turns out you were prepared for this!"));
 }
+
 
