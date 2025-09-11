@@ -41,34 +41,42 @@ int regPosToPlayPosMap[13] = { 12, 9, 10, 11, 5, 6, 7, 8, 4, 2, 3, 1, 0 };
 
 //============================
 //AATF Settings
-int manletBonus = 5;
+int manletBonus = 3;
+int bronzeManletBonus = 0;
 int silverManletBonus = 0;
 int goldManletBonus = 0;
-int silverGiantPen = 4;
-int goldGiantPen = 0;
+int bronzeGiantPen = 0;
+int silverGiantPen = 2;
+int goldGiantPen = 4;
 
 int goldRate = 99; //Player skill ratings
 int silverRate = 92;
+int bronzeRate = 85;
 int regRate = 77;
 int gkRate = 77;
 
 int reqNumGold = 2; //Numbers of medals
 int reqNumSilver = 2;
+int reqNumBronze = 1;
 
 int goldForm = 8; //possible range 1-8
 int silverForm = 8;
+int bronzeForm = 8;
 int regForm = 4;
 
 int goldIR = 3; //Injury resistence (possible range 1-3)
 int silverIR = 3;
+int bronzeIR = 3;
 int regIR = 1;
 
 int goldWeakFootUse = 2; //Gold medal weak foot usage limit
 int silverWeakFootUse = 2;
+int bronzeWeakFootUse = 2;
 int regWeakFootUse = 2;
 
 int goldWeakFootAcc = 4; //Gold medal weak foot accuracy limit
 int silverWeakFootAcc = 4;
+int bronzeWeakFootAcc = 4;
 int regWeakFootAcc = 2;
 
 int manletCardBonus = 1; //Manlets get 1 extra card
@@ -78,15 +86,18 @@ int manletPosBonus = 1; //Manlets get 1 extra double A position
 
 int gkSkillCards = 2; //Skill cards
 int regSkillCards = 3;
-int silverSkillCards = 4;
-int goldSkillCards = 5;
+int bronzeSkillCards = 4;
+int silverSkillCards = 5;
+int goldSkillCards = 6;
 
 int gkTrickCards = 0; //Trick cards
 int regTrickCards = 2;
+int bronzeTrickCards = 2;
 int silverTrickCards = 3;
 int goldTrickCards = 3;
 
 int regCOM = 0; //COM playing styles
+int bronzeCOM = 1;
 int silverCOM = 1;
 int goldCOM = 2;
 
@@ -124,6 +135,7 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 	int numGK = 0;
 	//Count of player ratings
 	int numReg = 0;
+	int numBronze = 0;
 	int numSilver = 0;
 	int numGold = 0;
 	//Count of height brackets
@@ -312,7 +324,7 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 			errorMsg << _T("Registered position out of range (0-12); ");
 		}
 
-		if (pesVersion <= 16)
+		if (pesVersion == 16)
 		{
 			if (player.play_style > 18 || player.play_style == 16)
 			{
@@ -338,7 +350,7 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 		}
 
 		/* REGULAR */
-		if(rating < silverRate-silverGiantPen) //Regular player
+		if(rating < bronzeRate-bronzeGiantPen) //Regular player
         {
             numReg++;
 			targetRate = regRate;
@@ -454,6 +466,69 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 				if (player.injury + 1 < regIR) errorMsg << _T("WARN: Has inj resist") << player.injury + 1 << _T(", allowed ") << regIR << _T("; ");
 			}
 		}
+		/* BRONZE */
+        else if(rating < silverRate-silverGiantPen) //Bronze player
+        {
+            numBronze++;
+			targetRate = bronzeRate;
+			targetRate2 = bronzeRate;
+			targetRate3 = bronzeRate;
+
+			weakFootUse = bronzeWeakFootUse;
+			weakFootAcc = bronzeWeakFootAcc;
+
+            if(numBronze > reqNumBronze)
+			{
+                errorTot++;
+				errorMsg << _T("Too many Bronze medals; ");
+			}
+            if(player.form+1 != bronzeForm)
+			{
+                errorTot++;
+				errorMsg << _T("Form is ") << player.form+1 << _T(", should be ") << bronzeForm << _T("; ");
+			}
+            if(player.reg_pos == 0) //Medals can't be GK
+			{
+                errorTot++;
+				errorMsg << _T("Medals cannot play as GK; ");
+			}
+			if(player.height >= heightGiant) //HA get penalty
+			{
+				targetRate -= bronzeGiantPen;
+				targetRate2 -= bronzeGiantPen;
+				targetRate3 -= bronzeGiantPen;
+			}
+			else if(player.height <= heightManlet && usingRed)
+            {
+				targetRate += bronzeManletBonus;
+				targetRate2 += bronzeManletBonus;
+				targetRate3 += bronzeManletBonus;
+			}
+            cardMod += min(bronzeTrickCards, numTrick); //3 free tricks
+			cardMod += min(bronzeCOM, numCom); //1 free COM
+			//cardMod += min(1, (countA - 1)); //1 free A-position
+			cardLimit = bronzeSkillCards + cardMod; //4 skill cards
+
+			if(player.injury+1 > bronzeIR)
+			{
+				errorTot++;
+				errorMsg << _T("Injury resist is ") << player.injury+1 << _T(", should be ") << bronzeIR << _T("; ");
+			}
+
+			if (eCheck)
+			{
+				if (numTrick < bronzeTrickCards) errorMsg << _T("WARN: Has ") << numTrick << _T(" trick cards, allowed ") << bronzeTrickCards << _T("; ");
+				if (numCom < bronzeCOM) errorMsg << _T("WARN: Has ") << numCom << _T(" COM cards, allowed ") << bronzeCOM << _T("; ");
+				if (player.injury + 1 < bronzeIR) errorMsg << _T("WARN: Has inj resist") << player.injury + 1 << _T(", allowed ") << bronzeIR << _T("; ");
+			}
+
+			//SPECIAL FAG13: Medals can trade a card for 4/4 footedness
+			/*if (player.weak_use + 1 > weakFootUse)
+			{
+				weakFootUse = 4;
+				cardLimit--;
+			}*/
+        }
 		/* SILVER */
         else if(rating < goldRate-goldGiantPen) //Silver player
         {
@@ -883,3 +958,4 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 	else
 		SendDlgItemMessage(hAatfbox, IDB_AATFOK, WM_SETTEXT, 0, (LPARAM) _T("Turns out you were prepared for this!"));
 }
+
