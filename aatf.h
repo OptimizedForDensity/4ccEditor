@@ -40,6 +40,7 @@ extern int regWeakFootAcc;
 
 extern int gkSkillCards;
 extern int regSkillCards;
+extern int bronzeSkillCards;
 extern int silverSkillCards;
 extern int goldSkillCards;
 
@@ -72,5 +73,6 @@ extern int heightTall;
 extern int heightTallGK;
 extern int heightMid;
 extern int heightManlet;
+
 
 
