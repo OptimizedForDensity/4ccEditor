@@ -657,10 +657,10 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 			}
 
 			//SPECIAL Spring 25 - GK and gold medals can't be in giant height bracket
-			if (player.height >= heightGiant)
+			/*if (player.height >= heightGiant)
 			{
 				errorMsg << _T("Gold medal heights cannot be ") << heightGiant << _T("cm; ");
-			}
+			}*/
 
 			//SPECIAL FAG13: Medals can trade a card for 4/4 footedness
 			/*if (player.weak_use + 1 > weakFootUse)
@@ -963,6 +963,7 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 	else
 		SendDlgItemMessage(hAatfbox, IDB_AATFOK, WM_SETTEXT, 0, (LPARAM) _T("Turns out you were prepared for this!"));
 }
+
 
 
 
