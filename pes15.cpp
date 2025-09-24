@@ -673,8 +673,8 @@ void write_team_info15(team_entry team, int& current_byte, void* ghdescriptor)
 		return;
 	}
 
-	//teams.id = read_data15(0, 4 * 8, current_byte, pDescriptor15);
-	current_byte += 0x4; //Advance past team ID
+	write_data15(team.id, 0, 4 * 8, current_byte, pDescriptor15);
+	//current_byte += 0x4; //Advance past team ID
 
 	current_byte += 0xE;
 	write_data15(team.b_edit_name, 0, 1, current_byte, pDescriptor15);
@@ -739,3 +739,4 @@ void write_team_tactics15(team_entry team, int& current_byte, void* ghdescriptor
 
 	//Block length: 0x204
 }
+
