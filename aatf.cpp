@@ -102,9 +102,9 @@ int silverCOM = 1;
 int goldCOM = 2;
 
 int greenGiga = 0; //Green height bracket
-int greenGiant = 6;
+int greenGiant = 5;
 int greenTall = 6;
-int greenMid = 5;
+int greenMid = 6;
 int greenManlet = 6;
 
 int redGiga = 0; //Red height bracket
@@ -959,11 +959,8 @@ void aatf_single(HWND hAatfbox, int pesVersion, int teamSel, player_entry* gplay
 
 	SetWindowText(GetDlgItem(hAatfbox, IDT_AATFOUT), msgOut.c_str());
 	if(errorTot)
-		SendDlgItemMessage(hAatfbox, IDB_AATFOK, WM_SETTEXT, 0, (LPARAM) _T("Back to Magic Kindergarten"));
+		SendDlgItemMessage(hAatfbox, IDB_AATFOK, WM_SETTEXT, 0, (LPARAM) _T("Alright, get their clothes"));
 	else
-		SendDlgItemMessage(hAatfbox, IDB_AATFOK, WM_SETTEXT, 0, (LPARAM) _T("Turns out you were prepared for this!"));
+		SendDlgItemMessage(hAatfbox, IDB_AATFOK, WM_SETTEXT, 0, (LPARAM) _T("GO TEAM EXPORT!"));
 }
-
-
-
 
