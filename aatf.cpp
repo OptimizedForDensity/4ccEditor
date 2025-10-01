@@ -102,9 +102,9 @@ int silverCOM = 1;
 int goldCOM = 2;
 
 int greenGiga = 0; //Green height bracket
-int greenGiant = 5;
+int greenGiant = 6;
 int greenTall = 6;
-int greenMid = 6;
+int greenMid = 5;
 int greenManlet = 6;
 
 int redGiga = 0; //Red height bracket
