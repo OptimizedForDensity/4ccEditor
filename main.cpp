@@ -4,6 +4,7 @@
 #include "editor.h"
 #include "window.h"
 #include "aatf.h"
+#include <algorithm>
 #include <array>
 #include <string>
 #include <Windows.h>
