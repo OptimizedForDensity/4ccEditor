@@ -4,6 +4,7 @@
 #include "editor.h"
 #include "window.h"
 #include "aatf.h"
+#include <array>
 #include <string>
 #include <Windows.h>
 #pragma comment(lib, "Winmm.lib")
@@ -131,6 +132,45 @@ pf_createFileDescriptor15 createFileDescriptor15;
 pf_destroyFileDescriptor15 destroyFileDescriptor15;
 pf_decryptFile15 decryptFile15;
 pf_encryptFile15 encryptFile15;
+
+constexpr std::array<std::array<int, 19 /* num. skills */>, 18 /* num. playstyles */> playstyleMultipliers = {{
+	// blank
+	{ 2, 1, 1, 1, 1, 2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
+	// goal poacher
+	{ 2, 2, 2, 1, 1, 2, 0, 0, 1, 0, 0, 1, 2, 3, 2, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// dummy runner
+	{ 3, 2, 1, 2, 1, 2, 0, 0, 1, 0, 0, 1, 2, 3, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// fox in the box
+	{ 2, 2, 1, 0, 0, 3, 0, 0, 2, 0, 0, 3, 1, 2, 2, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// target man
+	{ 2, 2, 2, 2, 0, 2, 0, 0, 2, 0, 0, 1, 1, 2, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0 },
+	// creative playmaker
+	{ 3, 2, 1, 3, 2, 2, 0, 0, 0, 0, 0, 1, 2, 2, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// prolific winger
+	{ 2, 2, 3, 1, 1, 2, 0, 0, 0, 0, 0, 1, 3, 3, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// classic 10
+	{ 2, 3, 1, 3, 3, 1, 1, 1, 0, 1, 0, 0, 1, 1, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// hole player
+	{ 2, 3, 2, 2, 2, 1, 0, 0, 0, 1, 0, 0, 2, 3, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// box to box
+	{ 2, 2, 1, 2, 1, 1, 0, 0, 0, 2, 1, 0, 2, 2, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0 },
+	// destroyer
+	{ 1, 1, 1, 2, 2, 0, 1, 1, 0, 2, 2, 0, 1, 1, 2, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0 },
+	// anchor man
+	{ 0, 1, 1, 1, 2, 0, 1, 1, 1, 3, 2, 0, 1, 2, 1, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0 },
+	// build up
+	{ 0, 1, 1, 2, 2, 0, 1, 1, 1, 3, 3, 0, 1, 1, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// offensive fullback
+	{ 1, 1, 3, 1, 2, 0, 1, 0, 0, 2, 1, 0, 2, 2, 2, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0 },
+	// defensive fullback
+	{ 1, 1, 1, 0, 1, 0, 1, 0, 1, 2, 3, 1, 1, 2, 3, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// extra frontman
+	{ 0, 1, 1, 1, 0, 2, 0, 1, 2, 2, 2, 1, 1, 0, 2, 0, 3, 2, 0, 0, 0, 0, 0, 0, 0 },
+	// offensive goalkeeper
+	{ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0 },
+	// defensive goalkeeper
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 2, 0, 1, 2, 0, 0, 0, 0, 0 }
+}};
 
 //The TCHAR-version of a user-provided entry point for a graphical 
 //  Windows-based application.
@@ -889,16 +929,19 @@ LRESULT CALLBACK wnd_proc(HWND H, UINT M, WPARAM W, LPARAM L)
 				{
 					if(HIWORD(W)==BN_CLICKED)
 					{
-						_itow_s(goldRate, buffer, 3, 10);
+						auto values = playstyleMultipliers[gplayers[gn_playind[gn_listsel]].play_style];
 						for(int ii=IDT_ABIL_ATKP;ii<gi_lastAbility;ii+=2)
+						{
+							_itow_s(values[(ii - IDT_ABIL_ATKP) / 2], buffer, 3, 10);
 							SendDlgItemMessage(ghw_tab1, ii, WM_SETTEXT, 0, (LPARAM)buffer);
+						}
 
 						_itow_s(goldForm, buffer, 3, 10);
 						SendDlgItemMessage(ghw_tab1, IDT_ABIL_FORM, WM_SETTEXT, 0, (LPARAM)buffer);
 
 						_itow_s(goldIR, buffer, 3, 10);
 						SendDlgItemMessage(ghw_tab1, IDT_ABIL_INJU, WM_SETTEXT, 0, (LPARAM)buffer);
-						
+
 						_itow_s(goldWeakFootUse, buffer, 3, 10);
 						SendDlgItemMessage(ghw_tab1, IDT_ABIL_WKUS, WM_SETTEXT, 0, (LPARAM)buffer);
 
