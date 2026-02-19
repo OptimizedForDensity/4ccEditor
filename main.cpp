@@ -954,9 +954,12 @@ LRESULT CALLBACK wnd_proc(HWND H, UINT M, WPARAM W, LPARAM L)
 				{
 					if(HIWORD(W)==BN_CLICKED)
 					{
-						_itow_s(silverRate, buffer, 3, 10);
+						auto values = playstyleMultipliers[gplayers[gn_playind[gn_listsel]].play_style];
 						for (int ii = IDT_ABIL_ATKP; ii < gi_lastAbility; ii += 2)
+						{
+							_itow_s(min(80 + values[(ii - IDT_ABIL_ATKP) / 2]), buffer, 3, 10);
 							SendDlgItemMessage(ghw_tab1, ii, WM_SETTEXT, 0, (LPARAM)buffer);
+						}
 
 						_itow_s(silverForm, buffer, 3, 10);
 						SendDlgItemMessage(ghw_tab1, IDT_ABIL_FORM, WM_SETTEXT, 0, (LPARAM)buffer);
@@ -979,9 +982,12 @@ LRESULT CALLBACK wnd_proc(HWND H, UINT M, WPARAM W, LPARAM L)
 							//if(ii==IDT_ABIL_DEFP || ii==IDT_ABIL_BWIN || ii==IDT_ABIL_EXPL) //Nerf Defensive Prowess, Ball winning and Explosive power to 72
 							//	SendDlgItemMessage(ghw_tab1, ii, WM_SETTEXT, 0, (LPARAM)_T("77"));
 
-						_itow_s(regRate, buffer, 3, 10);
+						auto values = playstyleMultipliers[gplayers[gn_playind[gn_listsel]].play_style];
 						for (int ii = IDT_ABIL_ATKP; ii < gi_lastAbility; ii += 2)
+						{
+							_itow_s(min(70 + values[(ii - IDT_ABIL_ATKP) / 2]), buffer, 3, 10);
 							SendDlgItemMessage(ghw_tab1, ii, WM_SETTEXT, 0, (LPARAM)buffer);
+						}
 
 						_itow_s(regForm, buffer, 3, 10);
 						SendDlgItemMessage(ghw_tab1, IDT_ABIL_FORM, WM_SETTEXT, 0, (LPARAM)buffer);
