@@ -957,7 +957,7 @@ LRESULT CALLBACK wnd_proc(HWND H, UINT M, WPARAM W, LPARAM L)
 						auto values = playstyleMultipliers[gplayers[gn_playind[gn_listsel]].play_style];
 						for (int ii = IDT_ABIL_ATKP; ii < gi_lastAbility; ii += 2)
 						{
-							_itow_s(80 + values[(ii - IDT_ABIL_ATKP) / 2], buffer, 3, 10);
+							_itow_s(80 + values[(ii - IDT_ABIL_ATKP) / 2] * 5, buffer, 3, 10);
 							SendDlgItemMessage(ghw_tab1, ii, WM_SETTEXT, 0, (LPARAM)buffer);
 						}
 
@@ -985,7 +985,7 @@ LRESULT CALLBACK wnd_proc(HWND H, UINT M, WPARAM W, LPARAM L)
 						auto values = playstyleMultipliers[gplayers[gn_playind[gn_listsel]].play_style];
 						for (int ii = IDT_ABIL_ATKP; ii < gi_lastAbility; ii += 2)
 						{
-							_itow_s(70 + values[(ii - IDT_ABIL_ATKP) / 2], buffer, 3, 10);
+							_itow_s(70 + values[(ii - IDT_ABIL_ATKP) / 2] * 5, buffer, 3, 10);
 							SendDlgItemMessage(ghw_tab1, ii, WM_SETTEXT, 0, (LPARAM)buffer);
 						}
 
