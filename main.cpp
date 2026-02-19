@@ -133,7 +133,7 @@ pf_destroyFileDescriptor15 destroyFileDescriptor15;
 pf_decryptFile15 decryptFile15;
 pf_encryptFile15 encryptFile15;
 
-std::array<std::array<int, 19 /* num. skills */>, 18 /* num. playstyles */> playstyleMultipliers = {{
+std::array<std::array<int, 25 /* num. skills */>, 18 /* num. playstyles */> playstyleMultipliers = {{
 	// blank
 	{ 2, 1, 1, 1, 1, 2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
 	// goal poacher
