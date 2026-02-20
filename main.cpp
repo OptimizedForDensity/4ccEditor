@@ -142,10 +142,6 @@ std::array<std::array<int, 25 /* num. skills */>, 18 /* num. playstyles */> play
 	{ 3, 2, 1, 2, 1, 2, 0, 0, 1, 0, 0, 1, 2, 3, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
 	// fox in the box
 	{ 2, 2, 1, 0, 0, 3, 0, 0, 2, 0, 0, 3, 1, 2, 2, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0 },
-	// target man
-	{ 2, 2, 2, 2, 0, 2, 0, 0, 2, 0, 0, 1, 1, 2, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0 },
-	// creative playmaker
-	{ 3, 2, 1, 3, 2, 2, 0, 0, 0, 0, 0, 1, 2, 2, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
 	// prolific winger
 	{ 2, 2, 3, 1, 1, 2, 0, 0, 0, 0, 0, 1, 3, 3, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
 	// classic 10
@@ -154,18 +150,22 @@ std::array<std::array<int, 25 /* num. skills */>, 18 /* num. playstyles */> play
 	{ 2, 3, 2, 2, 2, 1, 0, 0, 0, 1, 0, 0, 2, 3, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
 	// box to box
 	{ 2, 2, 1, 2, 1, 1, 0, 0, 0, 2, 1, 0, 2, 2, 2, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0 },
-	// destroyer
-	{ 1, 1, 1, 2, 2, 0, 1, 1, 0, 2, 2, 0, 1, 1, 2, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0 },
 	// anchor man
 	{ 0, 1, 1, 1, 2, 0, 1, 1, 1, 3, 2, 0, 1, 2, 1, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0 },
-	// build up
-	{ 0, 1, 1, 2, 2, 0, 1, 1, 1, 3, 3, 0, 1, 1, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// destroyer
+	{ 1, 1, 1, 2, 2, 0, 1, 1, 0, 2, 2, 0, 1, 1, 2, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0 },
+	// extra frontman
+	{ 0, 1, 1, 1, 0, 2, 0, 1, 2, 2, 2, 1, 1, 0, 2, 0, 3, 2, 0, 0, 0, 0, 0, 0, 0 },
 	// offensive fullback
 	{ 1, 1, 3, 1, 2, 0, 1, 0, 0, 2, 1, 0, 2, 2, 2, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0 },
 	// defensive fullback
 	{ 1, 1, 1, 0, 1, 0, 1, 0, 1, 2, 3, 1, 1, 2, 3, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0 },
-	// extra frontman
-	{ 0, 1, 1, 1, 0, 2, 0, 1, 2, 2, 2, 1, 1, 0, 2, 0, 3, 2, 0, 0, 0, 0, 0, 0, 0 },
+	// target man
+	{ 2, 2, 2, 2, 0, 2, 0, 0, 2, 0, 0, 1, 1, 2, 2, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0 },
+	// creative playmaker
+	{ 3, 2, 1, 3, 2, 2, 0, 0, 0, 0, 0, 1, 2, 2, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+	// build up
+	{ 0, 1, 1, 2, 2, 0, 1, 1, 1, 3, 3, 0, 1, 1, 1, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0 },
 	// offensive goalkeeper
 	{ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0 },
 	// defensive goalkeeper
@@ -217,7 +217,7 @@ int APIENTRY _tWinMain(HINSTANCE I, HINSTANCE PI, LPTSTR CL, int SC)
 	ghw_main = CreateWindowEx(
 		0,
 		wc.lpszClassName,
-		_T("4ccEditor Autumn 25 Edition (Version B)"),
+		_T("4ccEditor Pre-Spring 26 Edition (Version A)"),
 		WS_OVERLAPPEDWINDOW,
 		20, 20, 1120+144, 700,
 		NULL, NULL, ghinst, NULL);
@@ -1000,6 +1000,25 @@ LRESULT CALLBACK wnd_proc(HWND H, UINT M, WPARAM W, LPARAM L)
 
 						_itow_s(regWeakFootAcc, buffer, 3, 10);
 						SendDlgItemMessage(ghw_tab1, IDT_ABIL_WKAC, WM_SETTEXT, 0, (LPARAM)buffer);
+					}
+				}
+				break;
+				case IDB_MAKE_BUFF:
+				{
+					if(HIWORD(W)==BN_CLICKED)
+					{
+						auto values = playstyleMultipliers[gplayers[gn_playind[gn_listsel]].play_style];
+						for (int ii = IDT_ABIL_ATKP; ii < gi_lastAbility; ii += 2)
+						{
+							_itow_s(75 + values[(ii - IDT_ABIL_ATKP) / 2] * 5, buffer, 3, 10);
+							SendDlgItemMessage(ghw_tab1, ii, WM_SETTEXT, 0, (LPARAM)buffer);
+						}
+
+						_itow_s(regForm, buffer, 3, 10);
+						SendDlgItemMessage(ghw_tab1, IDT_ABIL_FORM, WM_SETTEXT, 0, (LPARAM)buffer);
+
+						_itow_s(regIR, buffer, 3, 10);
+						SendDlgItemMessage(ghw_tab1, IDT_ABIL_INJU, WM_SETTEXT, 0, (LPARAM)buffer);
 					}
 				}
 				break;
