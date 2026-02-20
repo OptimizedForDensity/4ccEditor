@@ -929,7 +929,8 @@ LRESULT CALLBACK wnd_proc(HWND H, UINT M, WPARAM W, LPARAM L)
 				{
 					if(HIWORD(W)==BN_CLICKED)
 					{
-						auto values = playstyleMultipliers[gplayers[gn_playind[gn_listsel]].play_style];
+						int pstyle = SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_GETCURSEL, 0, 0);
+						auto values = playstyleMultipliers[pstyle];
 						for(int ii=IDT_ABIL_ATKP;ii<gi_lastAbility;ii+=2)
 						{
 							_itow_s(min(85 + values[(ii - IDT_ABIL_ATKP) / 2] * 5, 99), buffer, 3, 10);
@@ -954,7 +955,8 @@ LRESULT CALLBACK wnd_proc(HWND H, UINT M, WPARAM W, LPARAM L)
 				{
 					if(HIWORD(W)==BN_CLICKED)
 					{
-						auto values = playstyleMultipliers[gplayers[gn_playind[gn_listsel]].play_style];
+						int pstyle = SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_GETCURSEL, 0, 0);
+						auto values = playstyleMultipliers[pstyle];
 						for (int ii = IDT_ABIL_ATKP; ii < gi_lastAbility; ii += 2)
 						{
 							_itow_s(80 + values[(ii - IDT_ABIL_ATKP) / 2] * 5, buffer, 3, 10);
@@ -982,7 +984,8 @@ LRESULT CALLBACK wnd_proc(HWND H, UINT M, WPARAM W, LPARAM L)
 							//if(ii==IDT_ABIL_DEFP || ii==IDT_ABIL_BWIN || ii==IDT_ABIL_EXPL) //Nerf Defensive Prowess, Ball winning and Explosive power to 72
 							//	SendDlgItemMessage(ghw_tab1, ii, WM_SETTEXT, 0, (LPARAM)_T("77"));
 
-						auto values = playstyleMultipliers[gplayers[gn_playind[gn_listsel]].play_style];
+						int pstyle = SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_GETCURSEL, 0, 0);
+						auto values = playstyleMultipliers[pstyle];
 						for (int ii = IDT_ABIL_ATKP; ii < gi_lastAbility; ii += 2)
 						{
 							_itow_s(70 + values[(ii - IDT_ABIL_ATKP) / 2] * 5, buffer, 3, 10);
@@ -1007,7 +1010,8 @@ LRESULT CALLBACK wnd_proc(HWND H, UINT M, WPARAM W, LPARAM L)
 				{
 					if(HIWORD(W)==BN_CLICKED)
 					{
-						auto values = playstyleMultipliers[gplayers[gn_playind[gn_listsel]].play_style];
+						int pstyle = SendDlgItemMessage(ghw_main, IDC_PLAY_STYL, CB_GETCURSEL, 0, 0);
+						auto values = playstyleMultipliers[pstyle];
 						for (int ii = IDT_ABIL_ATKP; ii < gi_lastAbility; ii += 2)
 						{
 							_itow_s(75 + values[(ii - IDT_ABIL_ATKP) / 2] * 5, buffer, 3, 10);
