@@ -48,7 +48,7 @@ void setup_main(HWND H)
 		20, 552, 250, 26, H, (HMENU)IDB_MAKE_SILV, GetModuleHandle(NULL), NULL);	
 	setup_control(hw_new, ghFont, scale_cntl_proc);
 
-	hw_new = CreateWindowEx(0, _T("Button"), _T("Make Buff"), 
+	hw_new = CreateWindowEx(0, _T("Button"), _T("Bufflet"),
 		BS_PUSHBUTTON | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 
 		20, 584, 70, 26, H, (HMENU)IDB_MAKE_BUFF, GetModuleHandle(NULL), NULL);
 	setup_control(hw_new, ghFont, scale_cntl_proc);
