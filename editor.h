@@ -12,6 +12,7 @@
 #include <fstream>
 #include <unordered_map> //Unordered map for Player Appearance start byte lookup
 #include "crypt.h"
+#include "atlstr.h"
 
 #pragma comment( lib, "Shlwapi.lib" )	//Needed to make Shlwapi.h link
 #pragma comment( lib, "comctl32.lib" )	//Needed to link to common controls functions 
