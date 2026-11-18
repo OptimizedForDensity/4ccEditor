@@ -30,6 +30,20 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Install C++ ATL Component
+      shell: pwsh
+      run: |
+        $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+        $installPath = & $vswhere -latest -products * -property installationPath
+        $installer = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vs_installer.exe"
+      
+        Start-Process -FilePath $installer -ArgumentList `
+          "modify", `
+          "--installPath", "`"$installPath`"", `
+          "--add", "Microsoft.VisualStudio.Component.VC.ATL", `
+          "--quiet", "--norestart", "--nocache" `
+          -Wait -NoNewWindow
+
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v3
 
